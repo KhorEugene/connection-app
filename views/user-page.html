@@ -1,0 +1,77 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A cool thing made with Glitch">
+
+    <title>Connection App - Your Dashboard</title>
+
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/user-page.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <p id="session-id">
+      </p>
+      <h1>CONNECTION APP</h1>
+    </header>
+
+    <main>
+      <h2 id="welcome">Welcome to your personal dashboard</h2>
+      <p>
+        Next week's availability:
+      </p>
+      <ul id="availability">
+      </ul>
+      <p>
+        Next week's platform availability:
+      </p>
+      <ul id="platforms">
+      </ul>
+      <p>
+        Contact information for the stranger:
+      </p>
+      <ul id="contact-info">
+      </ul>
+      <h3>
+        If the information above is inaccurate, please update using the form below!
+      </h3>
+      <form id="infoform">
+        <label>
+          <b>Next Week's Availability:</b><br>
+          <label>Start Date:</label>
+          <input name="start-date" type="date">
+          <label>Start Time:</label>
+          <input name="start-time" type="time">
+          <label>End Date:</label>
+          <input name="end-date" type="date">
+          <label>Start Date:</label>
+          <input name="end-time" type="time">
+        </label>
+        <label>
+          <b>Your Available Platforms:</b>
+        </label>
+        <div class="checkboxes">
+          <label for="platform1"><input type="checkbox" id="platform1" name="platform1" value="Facebook"><span>Facebook</span></label>
+          <label for="platform2"><input type="checkbox" id="platform2" name="platform2" value="WhatsApp"><span>WhatsApp</span></label>
+          <label for="platform3"><input type="checkbox" id="platform3" name="platform3" value="Discord"><span>Discord</span></label>
+          <label for="platform4"><input type="checkbox" id="platform4" name="platform4" value="Zoom"><span>Zoom</span></label>
+        </div>
+        <button type="submit" id="submit-update">Submit Update</button>
+      </form>
+    </main>
+    <br>
+    <form id="logout" style="background-color:white"> 
+      <button type="submit" style="background-color:black;color:white">Log Out</button>  
+    </form>
+    
+  </body>
+</html>

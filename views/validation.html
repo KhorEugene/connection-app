@@ -1,0 +1,45 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A cool thing made with Glitch">
+
+    <title>Connection App - Register</title>
+
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/validation.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>CONNECTION APP</h1>
+    </header>
+<div id="mainbody">
+    <main>
+      <h2>Please insert code from email below</h2>
+      
+      <form id="codeform">
+        <label>
+          Code:
+          <input name="code" type="text" maxlength="6">
+        </label>
+        <button type="submit" id="submit-login">Confirm</button>
+      </form>
+        
+    </main> 
+    <p id="update">
+    </p>
+    <br>
+    <form id="login" style="background-color:white"> 
+      <button type="submit" style="background-color:black;color:white">Back to login!</button>  
+    </form>
+  </div>
+  </body>
+</html>
