@@ -7,6 +7,12 @@ const infoform = document.getElementById("infoform");
 const avform = document.getElementById("availabilityform");
 const platformform = document.getElementById("platformform");
 const button = document.getElementById("logout");
+const stname = document.getElementById("strangername");
+const stplatform = document.getElementById("matchplatform");
+const sttime = document.getElementById("matchtime");
+const stcontact = document.getElementById("strangercontact");
+const status = document.getElementById("partstatus");
+const msgbtn = document.getElementById("buttonmsg");
 const xhttp = new XMLHttpRequest();
 
 
@@ -46,11 +52,24 @@ fetch(window.location.pathname + "/information")
   const nickname = name.Name.toLowerCase();
   const nameCapitalized = nickname.charAt(0).toUpperCase() + nickname.slice(1);
   panel.innerHTML = "Welcome to your personal dashboard " + nameCapitalized;
+  if(name.status=="False"){
+    status.innerHTML = "Not confirmed";
+    msgbtn.innerHTML = "Confirm Now";
+    status.style.color = "red";
+  } else {
+    status.innerHTML = "Confirmed";
+    msgbtn.innerHTML = "Unconfirm Now";
+    status.style.color = "green";
+  }
   if (name.Availability.length==0||name.Availability[0]==""){
     availability.innerHTML = listmakera(["Not updated"]);
     availability.style.color = "red";
   } else {
     availability.innerHTML = listmakera(name.Availability);
+    if(name.Availability.length==5){
+      document.getElementById("maxwarn").innerHTML = "Max number of availability intervals reached!";
+      document.getElementById("maxwarn").style.color = "red";
+    }
   }
   if (name.Platforms.length==0||name.Platforms[0]==""){
     platforms.innerHTML = listmakerp(["Not updated"]);
@@ -63,6 +82,30 @@ fetch(window.location.pathname + "/information")
     contact.style.color = "red";
   } else {
     contact.innerHTML = listmakerc(name.Contact);
+  }
+  if(name.strangername==""){
+    stname.innerHTML = "Not yet allocated";
+    stname.style.color = "red";
+  } else {
+    stname.innerHTML = name.strangername;
+  }
+  if(name.matchplatforms[0]=="" || name.matchplatforms.length==0){
+    stplatform.innerHTML = "Not yet allocated";  
+    stplatform.style.color = "red";
+  } else {
+    stplatform.innerHTML = name.matchplatforms.join(", ");
+  }
+  if(name.matchtime==""){
+    sttime.innerHTML = "Not yet allocated";  
+    sttime.style.color = "red";
+  } else {
+    sttime.innerHTML = name.matchtime;
+  }
+  if(name.strangercontact==""){
+    stcontact.innerHTML = "Not yet allocated";  
+    stcontact.style.color = "red";
+  } else {
+    stcontact.innerHTML = name.strangercontact;
   }
   let lista = Object.values(document.getElementsByTagName("button")).filter((val)=>{
     if(val.getAttribute('id')==null){
@@ -115,7 +158,6 @@ fetch(window.location.pathname + "/information")
       }
     })
   })
-  
   listc.forEach((val)=>{
     val.addEventListener("click", event => {
       let identity="lidc"+val.getAttribute('id').slice(4);
@@ -129,6 +171,14 @@ fetch(window.location.pathname + "/information")
         document.getElementById(identity).style.color = "red";
       }  
     })
+  })
+  
+  msgbtn.addEventListener("click",event =>{
+    let updatests = status.innerHTML;
+    xhttp.open("POST", window.location.pathname + "/confirm",true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify({"status":updatests}));
+    location.reload()
   })
   
 })
@@ -158,7 +208,7 @@ avform.addEventListener("submit", event => {
     let newAvailability = avform.elements["start-date"].value + " " + avform.elements["start-time"].value+":00" +" to "+ avform.elements["end-date"].value + " " + avform.elements["end-time"].value+":00"
     const input = document.createElement('input');
     input.type = 'hidden';
-    input.name = "availability"; // 'the key/name of the attribute/field that is sent to the server
+    input.name = "availability";
     input.value = newAvailability;
     avform.appendChild(input);
     avform.method="post";

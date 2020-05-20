@@ -16,7 +16,12 @@ const userSchema = new Schema({
   cookie: String,
   availability: [String],
   platforms: [String],
-  contact: [String]
+  contact: [String],
+  strangername: String,
+  matchplatforms: [String],
+  strangercontact: String,
+  matchtime: String,
+  status: String
 });
 
 const Model = mongoose.model('Model',userSchema);
@@ -88,7 +93,12 @@ app.get("/register/validation/:hashpw/:name/:email/check/:code", (req, res) => {
             cookie: fun.SHA256(req.params.email+req.params.hashpw),
             availability: [""],
             platforms: [""],
-            contact: [""]
+            contact: [""], 
+            strangername: "",
+            matchplatforms: [""],
+            strangercontact: "",
+            matchtime: "",
+            status:"False"
           })
           Doc.save(function (err, Doc) {
             if (err) return console.error(err);
@@ -129,8 +139,10 @@ app.post("/user/:cookie/update", (req,res,next)=>{
       console.log("Error!")
     } else {
       if(req.body.typeA=="True"){
-        if(user.availability.length==0){
+        if(user.availability.length==0 || user.availability[0]==""){
           user.availability = [req.body.availability];
+        } else if (user.availability.length==5){
+          
         } else {
           user.availability = user.availability.concat([req.body.availability]);
         }
@@ -170,6 +182,27 @@ app.post("/user/:cookie/delete", (req,res) =>{
   })
 })
 
+app.post("/user/:cookie/confirm", (req,res) =>{
+  let cookie = req.params.cookie;
+  let update = req.body.status;
+  mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology: true });
+  Model.findOne({"cookie":cookie},(err,user)=>{
+    if (err) return console.error(err);
+    if(user==null){
+      console.log("Error!")
+    } else {
+      if(update=="Confirmed"){
+        user.status="False";
+      } else {
+        user.status="True";
+      }
+      user.save(function (err, Doc) {
+        if (err) return console.error(err);
+      });
+    }
+  })
+})
+
 //Retrieval path - gets information from database to update the user page
 app.get("/user/:cookie/information", (req, res) => {
   let cookie = req.params.cookie;
@@ -179,7 +212,9 @@ app.get("/user/:cookie/information", (req, res) => {
     if(user==null){
       res.json({"Name":"Error! You are not meant to query this way!"});
     } else {
-      res.json({"Name":user.nickname,"Availability":user.availability,"Platforms":user.platforms,"Contact":user.contact});
+      res.json({"Name":user.nickname,"Availability":user.availability,"Platforms":user.platforms,"Contact":user.contact,
+               "matchplatforms":user.matchplatforms,"strangercontact":user.strangercontact, "strangername":user.strangername,
+               "matchtime":user.matchtime,"status":user.status});
     }
   })
 });
