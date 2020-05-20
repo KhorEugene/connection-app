@@ -26,8 +26,29 @@
 
     <main>
       <h2 id="welcome">Welcome to your personal dashboard</h2>
-      <p>
-        Next week's availability:
+      <div style="background-color:#adedbc">
+        <h2 id="setup">Here is your allocated appointment next week!</h2>
+        <p>
+          <b>Connected Stranger's Nickname:</b><br>
+          <span id="strangername"></span>
+        </p>
+        <p>
+          <b>Connected Stranger's matching platform:</b><br>
+          <span id="matchplatform"></span>
+        </p>
+        <p>
+          <b>Meeting time:</b><br>
+          <span id="matchtime"></span>
+        </p>
+        <p>
+          <b>Connected Stranger's contact:</b><br>
+          <span id="strangercontact"></span>
+        </p>
+      </div>
+      
+      <div style="border-style:solid">
+        <p>
+        Next week's availability: <span id="maxwarn"></span>
       </p>
       <ul id="availability">
       </ul>
@@ -41,10 +62,24 @@
       </p>
       <ul id="contact-info">
       </ul>
-      <h3>
+      </div>
+      <p id="participation">
+       Status of participation next week:
+        <b><span id="partstatus"></span></b>
+        <button id="buttonmsg">
+          
+        </button>
+      </p>
+      
+      <h4>
         If the information above is inaccurate, please update using the form below!
-      </h3>
+      </h4>
+      
+      
       <form id="availabilityform">
+        <h3>
+          <b>Update Form</b>
+        </h3>
         <label>
           <b>Next Week's Availability:</b> (will add to your availabilities above)<br>
           <label>Start Date:</label>
