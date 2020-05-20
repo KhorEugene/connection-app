@@ -8,6 +8,8 @@ const Schema = mongoose.Schema;
 
 const db = mongoose.connection;
 
+const platformlist = ["Facebook", "WhatsApp", "Zoom", "Discord"];
+
 const userSchema = new Schema({
   email:  String,
   nickname: String,
@@ -21,6 +23,7 @@ const Model = mongoose.model('Model',userSchema);
 
 // make all the files in '/public' available
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"),(req,res,next) => {
   req.time = new Date().toString();
   console.log(req.method + " " + req.path + " - " + req.headers["x-forwarded-for"].split(',')[0] + " " + req.time);
@@ -118,8 +121,53 @@ app.get("/user/:cookie", (req,res) => {
 
 //Update path - updates user's values in the DB and redirects back to the user page
 app.post("/user/:cookie/update", (req,res,next)=>{
-  //new values to be sent to DB here
+  const cookie = req.params.cookie;
+  mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology: true });
+  Model.findOne({"cookie":cookie},(err,user)=>{
+    if (err) return console.error(err);
+    if(user==null){
+      console.log("Error!")
+    } else {
+      if(req.body.typeA=="True"){
+        if(user.availability.length==0){
+          user.availability = [req.body.availability];
+        } else {
+          user.availability = user.availability.concat([req.body.availability]);
+        }
+      } else if (req.body.typeP=="True") {
+        const platforms = Object.keys(req.body).filter((val)=>{
+          return platformlist.includes(val);
+        })
+        user.platforms = platforms;
+      } else if (req.body.typeC=="True") {
+        const contact = [req.body.contact];
+        user.contact = contact;
+      }
+      user.save(function (err, Doc) {
+        if (err) return console.error(err);
+      });
+    }
+  })
   res.redirect("/user/"+req.params.cookie);
+})
+
+app.post("/user/:cookie/delete", (req,res) =>{
+  let cookie = req.params.cookie;
+  mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology: true });
+  Model.findOne({"cookie":cookie},(err,user)=>{
+    if (err) return console.error(err);
+    if(user==null){
+      console.log("Error!")
+    } else {
+      let newUserArray = user[req.body.type].filter((val)=>{
+        return val !== req.body.todelete;
+      })
+      user[req.body.type]=newUserArray;
+      user.save(function (err, Doc) {
+        if (err) return console.error(err);
+      });
+    }
+  })
 })
 
 //Retrieval path - gets information from database to update the user page

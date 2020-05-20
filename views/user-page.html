@@ -44,9 +44,9 @@
       <h3>
         If the information above is inaccurate, please update using the form below!
       </h3>
-      <form id="infoform">
+      <form id="availabilityform">
         <label>
-          <b>Next Week's Availability:</b><br>
+          <b>Next Week's Availability:</b> (will add to your availabilities above)<br>
           <label>Start Date:</label>
           <input name="start-date" type="date">
           <label>Start Time:</label>
@@ -56,16 +56,31 @@
           <label>Start Date:</label>
           <input name="end-time" type="time">
         </label>
-        <label>
-          <b>Your Available Platforms:</b>
+        <button type="submit" id="submit-ava-update">Submit Availability Update</button>
+        <p id="errorbox" style="color:red">
+        </p>
+        </form>
+      
+      <form id="platformform">
+         <label>
+          <b>Your Available Platforms:</b>(Will replace the values above)
         </label>
         <div class="checkboxes">
-          <label for="platform1"><input type="checkbox" id="platform1" name="platform1" value="Facebook"><span>Facebook</span></label>
-          <label for="platform2"><input type="checkbox" id="platform2" name="platform2" value="WhatsApp"><span>WhatsApp</span></label>
-          <label for="platform3"><input type="checkbox" id="platform3" name="platform3" value="Discord"><span>Discord</span></label>
-          <label for="platform4"><input type="checkbox" id="platform4" name="platform4" value="Zoom"><span>Zoom</span></label>
+          <label for="platform1"><input type="checkbox" id="platform1" name="Facebook" value="Yes"><span>Facebook</span></label>
+          <label for="platform2"><input type="checkbox" id="platform2" name="WhatsApp" value="Yes"><span>WhatsApp</span></label>
+          <label for="platform3"><input type="checkbox" id="platform3" name="Discord" value="Yes"><span>Discord</span></label>
+          <label for="platform4"><input type="checkbox" id="platform4" name="Zoom" value="Yes"><span>Zoom</span></label>
         </div>
-        <button type="submit" id="submit-update">Submit Update</button>
+        <button type="submit" id="submit-plat-update">Submit Platform Update</button>
+      </form>
+         
+        <form id="infoform">
+        <label>
+          <b>Contact information:</b>(Will replace the values above)
+          <input type="text" name="contact" maxlength="500" required placeholder="e.g. You can reach me via XXX by XXX...">
+          P.s. if you do not provide this, there will be no way the stranger can contact you as your email is private by default 
+        </label>
+        <button type="submit" id="submit-info-update">Submit Contact Update</button>
       </form>
     </main>
     <br>
