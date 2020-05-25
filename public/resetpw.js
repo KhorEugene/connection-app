@@ -98,26 +98,26 @@ function SHA256(s){
     return binb2hex(core_sha256(str2binb(s), s.length * chrsz));
 }
 const warnslot = document.getElementById("warn")
-const registration = document.getElementById("registerform");
-registration.addEventListener("submit", event => {
-  let plaintextpw = registration.elements.Password.value;
-  let name = registration.elements.Nickname.value;
-  let email = registration.elements.Email.value;
+const resetform = document.getElementById("resetform");
+resetform.addEventListener("submit", event => {
+  let oldpw = resetform.elements.OldPassword.value;
+  let hashedoldpw = SHA256(oldpw);
+  let plaintextpw = resetform.elements.NewPassword.value;
   let clienthashedpw = SHA256(plaintextpw);
-  if(registration.elements.Confirm.value !== plaintextpw){
+  if(resetform.elements.NewConfirm.value !== plaintextpw){
     warnslot.innerHTML = "Passwords don't match!";
     warnslot.style.color = "red";
     event.preventDefault();
   } else {
     event.preventDefault();
-    fetch(window.location.pathname+"/validation/"+email)
+    fetch(window.location.pathname+"/resetcheck/"+hashedoldpw)
     .then(res => res.json)
     .then(name =>{
       if(name.Status == "Success"){
-        registration.elements.Password.value = clienthashedpw;
-        registration.method="post";
-        registration.action=window.location.pathname+"/validation"+"/"+clienthashedpw+"/"+name+"/"+email;
-        registration.submit();
+        resetform.elements.NewPassword.value = clienthashedpw;
+        resetform.method="post";
+        resetform.action=window.location.pathname+"/resetnow";
+        resetform.submit();
       } else {
         warnslot.innerHTML = "Email already exists!";
         warnslot.style.color = "red";

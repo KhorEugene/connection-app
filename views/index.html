@@ -1,5 +1,3 @@
-<!-- This is a static file -->
-<!-- served from your routes in server.js -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,7 +10,7 @@
 
     <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
     <!-- import the webpage's stylesheet -->
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/index.css">
 
     <!-- import the webpage's client-side javascript file -->
     <script src="/index.js" defer></script>
@@ -22,25 +20,39 @@
       <h1>CONNECTION APP</h1>
     </header>
     <main>
-      <h2>Please insert login details below</h2>
-
-      <form id="loginform">
-        <label>
-          Email Address:
-          <input name="Email" type="text" maxlength="100" required placeholder="Email Address">
-        </label>
-        <label>
-          Password:
-          <input name="Password" type="password" required placeholder="Password">
-        </label>
-        <button type="submit" id="submit-login">Login</button>
+    <div class="login-box">
+  <h2>Login</h2>
+  <form id="loginform">
+    <div class="user-box">
+      
+      <input name="Email" type="text" maxlength="100" required placeholder="Email Address"><label>Email Address</label>
+    </div>
+    <div class="user-box">
+      
+        <input name="Password" type="password" required placeholder="Password">
+        <label>Password</label>
+    </div>
+          <a href="">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+            <b id="loginbtn">Login</b>
+    </a>
+  </form>
+          <p id="alert">
+    </p> 
+      <form>
+        <a href="/register">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+        <b>Register</b>
+    </a>
       </form>
-    </main>
-    <p id="alert">
-    </p>
-    <br>
-    <form id="register" style="background-color:white"> 
-      <button type="submit" style="background-color:black;color:white">Register</button>  
-    </form>
+</div>
+      <footer style="color:white;position:absolute;bottom:10px">For any queries, reach out to connectionapp.uk@gmail.com</footer>
+      </main>
   </body>
 </html>

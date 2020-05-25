@@ -6,38 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A cool thing made with Glitch">
 
-    <title>Connection App - Register</title>
+    <title>Connection App - Admin</title>
 
     <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
     <!-- import the webpage's stylesheet -->
     <link rel="stylesheet" href="/style.css">
 
     <!-- import the webpage's client-side javascript file -->
-    <script src="/validation.js" defer></script>
+    <script src="/admin.js" defer></script>
   </head>
   <body>
     <header>
       <h1>CONNECTION APP</h1>
     </header>
-<div id="mainbody">
     <main>
-      <h2>Please insert code from email below</h2>
-      
-      <form id="codeform">
-        <label>
-          Code:
-          <input name="code" type="text" maxlength="6">
-        </label>
-        <button type="submit" id="submit-login">Confirm</button>
+      <h2>Welcome back Lord admin!</h2>
+      <form id="execute" style="background-color:white"> 
+      <button type="submit">Execute Now</button>  
       </form>
-        
-    </main> 
-    <p id="update">
-    </p>
-    <br>
-    <form id="login" style="background-color:white"> 
-      <button type="submit" style="background-color:black;color:white">Back to login!</button>  
+      <form id="clear" style="background-color:white"> 
+      <button type="submit">Clear Matching</button>  
+      </form>
+      <form id="return" style="background-color:white"> 
+      <button type="submit" style="background-color:black;color:white">Return to Home</button>  
     </form>
-  </div>
+      <div>
+        <ul id="view">
+          
+        </ul>
+        <ul id="view2">
+          
+        </ul>
+      </div>
+    </main>
   </body>
 </html>
