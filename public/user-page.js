@@ -13,8 +13,9 @@ const sttime = document.getElementById("matchtime");
 const stcontact = document.getElementById("strangercontact");
 const status = document.getElementById("partstatus");
 const msgbtn = document.getElementById("buttonmsg");
+const matchsts = document.getElementById("matchstatus");
+const resetform = document.getElementById("resetpw");
 const xhttp = new XMLHttpRequest();
-
 
 function listmakera(array){
   let output = ""
@@ -46,12 +47,15 @@ function listmakerc(array){
   return output
 }
 
+const firstcap = function(val){
+  const lowval = val.toLowerCase();
+  return lowval.charAt(0).toUpperCase() + lowval.slice(1);
+}
+
 fetch(window.location.pathname + "/information")
 .then(res => res.json())
 .then(name => {
-  const nickname = name.Name.toLowerCase();
-  const nameCapitalized = nickname.charAt(0).toUpperCase() + nickname.slice(1);
-  panel.innerHTML = "Welcome to your personal dashboard " + nameCapitalized;
+  panel.innerHTML = "Welcome to your personal dashboard " + firstcap(name.Name);
   if(name.status=="False"){
     status.innerHTML = "Not confirmed";
     msgbtn.innerHTML = "Confirm Now";
@@ -83,29 +87,33 @@ fetch(window.location.pathname + "/information")
   } else {
     contact.innerHTML = listmakerc(name.Contact);
   }
-  if(name.strangername==""){
-    stname.innerHTML = "Not yet allocated";
+  if(name.strangername=="NA"){
+    matchsts.innerHTML = "No Matches.. &#128542;"
+    matchsts.style.color = "red";
+    stname.innerHTML = "No matches this week :(";
     stname.style.color = "red";
   } else {
-    stname.innerHTML = name.strangername;
+    matchsts.innerHTML = "MATCHED! &#9996;"
+    matchsts.style.color = "white";
+    stname.innerHTML = firstcap(name.strangername);
   }
-  if(name.matchplatforms[0]=="" || name.matchplatforms.length==0){
-    stplatform.innerHTML = "Not yet allocated";  
+  if(name.matchplatforms[0]=="NA" || name.matchplatforms.length==0){
+    stplatform.innerHTML = "No matches this week :(";  
     stplatform.style.color = "red";
   } else {
     stplatform.innerHTML = name.matchplatforms.join(", ");
   }
-  if(name.matchtime==""){
-    sttime.innerHTML = "Not yet allocated";  
+  if(name.matchtime=="NA"){
+    sttime.innerHTML = "No matches this week :(";  
     sttime.style.color = "red";
   } else {
     sttime.innerHTML = name.matchtime;
   }
-  if(name.strangercontact==""){
-    stcontact.innerHTML = "Not yet allocated";  
+  if(name.strangercontact=="NA"){
+    stcontact.innerHTML = "No matches this week :(";  
     stcontact.style.color = "red";
   } else {
-    stcontact.innerHTML = name.strangercontact;
+    stcontact.innerHTML = firstcap(name.strangercontact);
   }
   let lista = Object.values(document.getElementsByTagName("button")).filter((val)=>{
     if(val.getAttribute('id')==null){
@@ -173,13 +181,17 @@ fetch(window.location.pathname + "/information")
     })
   })
   
-  msgbtn.addEventListener("click",event =>{
+  document.getElementById("confirm").addEventListener("submit", event => {
     let updatests = status.innerHTML;
-    xhttp.open("POST", window.location.pathname + "/confirm",true);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify({"status":updatests}));
-    location.reload()
-  })
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'status';
+    input.value = updatests;
+    document.getElementById("confirm").appendChild(input);
+    document.getElementById("confirm").method="post";
+    document.getElementById("confirm").action=window.location.pathname+"/confirm";
+    document.getElementById("confirm").submit();
+})
   
 })
 
@@ -263,6 +275,12 @@ button.addEventListener("click", event => {
     button.method="get";
     button.action="/";
     button.submit();
+})
+
+resetform.addEventListener("submit", event => {
+    resetform.method="get";
+    resetform.action=window.location.pathname+"/resetpw";
+    resetform.submit();
 })
 
 

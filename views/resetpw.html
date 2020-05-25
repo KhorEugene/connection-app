@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A cool thing made with Glitch">
+
+    <title>Connection App - Reset Password</title>
+
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/resetpw.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>CONNECTION APP</h1>
+    </header>
+
+    <main>
+      <h2>Warning! All your existing data will be deleted if you go through with this!</h2>
+
+      <form id="resetform">
+        <label>
+          Old Password:
+          <input name="OldPassword" type="password" required placeholder="Current Password">
+        </label>
+        <label>
+          New Password:
+          <input name="NewPassword" type="password" required placeholder="New Password">
+        </label>
+        <label>
+          Confirm New Password:
+          <input name="NewConfirm" type="password" required placeholder="Confirm New Password">
+        </label>
+        <p id="warn"></p>
+        <button type="submit" id="submit-login">Reset Password</button>
+      </form>
+    </main>
+    <br>
+    <form id="back" style="background-color:white"> 
+      <button type="submit" style="background-color:black;color:white">Back</button>  
+    </form>
+  </body>
+</html>

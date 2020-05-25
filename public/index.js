@@ -99,31 +99,39 @@ function SHA256(s){
 }
 
 const loginform = document.getElementById("loginform");
-loginform.addEventListener("submit", event => {
-  let Email = loginform.elements.Email.value;
-  let plaintextpw = loginform.elements.Password.value;
-  let clienthashedpw = SHA256(plaintextpw);
-  loginform.elements.Password.value = clienthashedpw;
-  fetch("/login/"+clienthashedpw+"/"+Email)
-  .then(res => res.json())
-  .then(name => {
-    if(name.Status == "Bad Login"){
-      document.getElementById("alert").innerHTML = "Invalid Login! Please login again.";
-      loginform.elements.Password.value = "";
-      loginform.elements.Email.value = "";
-    } else {
-      window.location.href = "/user/"+name.Cookie;
-    }
-  })
+const loginbtn = document.getElementById("loginbtn");
+loginbtn.addEventListener("click", event => {
+  if(loginform.elements.Email.value==""){
+    document.getElementById("alert").innerHTML = "Invalid Login! Please login again.";
+    loginform.elements.Password.value = "";
+    loginform.elements.Email.value = "";
+  } else {
+    let Email = loginform.elements.Email.value;
+    let plaintextpw = loginform.elements.Password.value;
+    let clienthashedpw = SHA256(plaintextpw);
+    loginform.elements.Password.value = clienthashedpw;
+    fetch("/login/"+clienthashedpw+"/"+Email)
+    .then(res => res.json())
+    .then(name => {
+      if(name.Status == "Bad Login"){
+        document.getElementById("alert").innerHTML = "Invalid Login! Please login again.";
+        loginform.elements.Password.value = "";
+        loginform.elements.Email.value = "";
+      } else {
+        window.location.href = "/user/"+name.Cookie;
+      }
+  }) 
+  }
   event.preventDefault();
 })
 
-const button = document.getElementById("register");
-button.addEventListener("click", event => {
-    button.method="get";
-    button.action="/register";
-    button.submit();
-})
+loginform.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    loginbtn.click();
+  }
+});
+
+
 
 
 

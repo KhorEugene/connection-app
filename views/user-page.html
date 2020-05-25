@@ -1,5 +1,3 @@
-<!-- This is a static file -->
-<!-- served from your routes in server.js -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,6 +26,9 @@
       <h2 id="welcome">Welcome to your personal dashboard</h2>
       <div style="background-color:#adedbc">
         <h2 id="setup">Here is your allocated appointment next week!</h2>
+        <p>
+          Match Status: <b id="matchstatus"></b>
+        </p>
         <p>
           <b>Connected Stranger's Nickname:</b><br>
           <span id="strangername"></span>
@@ -65,10 +66,12 @@
       </div>
       <p id="participation">
        Status of participation next week:
-        <b><span id="partstatus"></span></b>
-        <button id="buttonmsg">
-          
-        </button>
+        <b><span id="partstatus"></span></b><br>
+        <span><i>Ensure that this value is updated on Sunday when the matching program will run for the following week's matches!</i></span>
+        <form id="confirm" style="background-color:white"> 
+        <button id="buttonmsg" type="submit">
+          </button>
+          </form>
       </p>
       
       <h4>
@@ -105,10 +108,12 @@
           <label for="platform2"><input type="checkbox" id="platform2" name="WhatsApp" value="Yes"><span>WhatsApp</span></label>
           <label for="platform3"><input type="checkbox" id="platform3" name="Discord" value="Yes"><span>Discord</span></label>
           <label for="platform4"><input type="checkbox" id="platform4" name="Zoom" value="Yes"><span>Zoom</span></label>
+          <label for="platform5"><input type="checkbox" id="platform5" name="Phone" value="Yes"><span>Phone</span></label>
+          <label for="platform6"><input type="checkbox" id="platform6" name="Email" value="Yes"><span>Email</span></label>
+          <label for="platform7"><input type="checkbox" id="platform7" name="Any" value="Yes"><span>Any</span></label>
         </div>
         <button type="submit" id="submit-plat-update">Submit Platform Update</button>
       </form>
-         
         <form id="infoform">
         <label>
           <b>Contact information:</b>(Will replace the values above)
@@ -122,6 +127,10 @@
     <form id="logout" style="background-color:white"> 
       <button type="submit" style="background-color:black;color:white">Log Out</button>  
     </form>
-    
+    <form id="resetpw" style="background-color:white"> 
+      <label><button type="submit" style="background-color:red;color:white">Reset Password</button><br>
+        <i>Warning! This will clear all your data on availability, platforms, and contact!</i>
+      </label>
+    </form>
   </body>
 </html>
