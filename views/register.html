@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A cool thing made with Glitch">
 
-    <title>Connection App - Register</title>
+    <title>Connection App - Login</title>
 
     <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
     <!-- import the webpage's stylesheet -->
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/index.css">
 
     <!-- import the webpage's client-side javascript file -->
     <script src="/register.js" defer></script>
@@ -19,34 +19,49 @@
     <header>
       <h1>CONNECTION APP</h1>
     </header>
-
     <main>
-      <h2>Please insert registration details below</h2>
-
-      <form id="registerform">
-        <label>
-          Nickname:
-          <input name="Nickname" type="text" maxlength="100" required placeholder="Nickname (doesn't need to be unique!)">
-        </label>
-        <label>
-          Email:
-          <input name="Email" type="email" required placeholder="Email (please make sure this is unique!)">
-        </label>
-        <label>
-          Password:
-          <input name="Password" type="password" required placeholder="Password">
-        </label>
-        <label>
-          Confirm Password:
-          <input name="Confirm" type="password" required placeholder="Confirm Password">
-        </label>
-        <p id="warn"></p>
-        <button type="submit" id="submit-login">Register Now</button>
+    <div class="login-box">
+  <h2>Please insert registration details below</h2>
+  <form id="registerform">
+    <div class="user-box">
+      <input name="Nickname" type="text" maxlength="100" required placeholder="Nickname (doesn't need to be unique!)">
+      <label>Nickname</label>
+    </div>
+    <div class="user-box">
+        <input name="Email" type="email" required placeholder="Email Address (must be unique!)">
+        <label>Email Address</label>
+    </div>
+    <div class="user-box">
+        <input name="Password" type="password" required placeholder="Password">
+        <label>Password</label>
+    </div>
+    <div class="user-box">
+      
+        <input name="Confirm" type="password" required placeholder="Confirm Password">
+        <label>Confirm Password</label>
+    </div>
+    <p id="warn"></p>
+          <a href="">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+            <b id="submit-login">Register Now</b>
+    </a>
+  </form>
+          <p id="alert">
+    </p> 
+      <form>
+        <a href="https://connection-app.glitch.me/">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+        <b>Back to login</b>
+    </a>
       </form>
-    </main>
-    <br>
-    <form id="login" style="background-color:white"> 
-      <button type="submit" style="background-color:black;color:white">Back to login!</button>  
-    </form>
+</div>
+      <footer style="color:white;position:absolute;bottom:10px">For any queries, reach out to connectionapp.uk@gmail.com</footer>
+      </main>
   </body>
 </html>

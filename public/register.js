@@ -98,10 +98,12 @@ function SHA256(s){
     return binb2hex(core_sha256(str2binb(s), s.length * chrsz));
 }
 const warnslot = document.getElementById("warn")
+
 const registration = document.getElementById("registerform");
-registration.addEventListener("submit", event => {
+const regbtn = document.getElementById("submit-login")
+regbtn.addEventListener("click", event => {
   let plaintextpw = registration.elements.Password.value;
-  let name = registration.elements.Nickname.value;
+  let nickname = registration.elements.Nickname.value;
   let email = registration.elements.Email.value;
   let clienthashedpw = SHA256(plaintextpw);
   if(registration.elements.Confirm.value !== plaintextpw){
@@ -111,26 +113,25 @@ registration.addEventListener("submit", event => {
   } else {
     event.preventDefault();
     fetch(window.location.pathname+"/validation/"+email)
-    .then(res => res.json)
+    .then(res => res.json())
     .then(name =>{
       if(name.Status == "Success"){
         registration.elements.Password.value = clienthashedpw;
         registration.method="post";
-        registration.action=window.location.pathname+"/validation"+"/"+clienthashedpw+"/"+name+"/"+email;
+        registration.action=window.location.pathname+"/validation"+"/"+clienthashedpw+"/"+nickname+"/"+email;
         registration.submit();
       } else {
+        console.log(name.Status)
         warnslot.innerHTML = "Email already exists!";
         warnslot.style.color = "red";
-        event.preventDefault();
       }
     })
     
   }
 })
 
-const login = document.getElementById("login");
-login.addEventListener("click", event => {
-    login.method="get";
-    login.action="/";
-    login.submit();
-})
+registration.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    regbtn.click();
+  }
+});

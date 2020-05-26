@@ -104,22 +104,26 @@ resetform.addEventListener("submit", event => {
   let hashedoldpw = SHA256(oldpw);
   let plaintextpw = resetform.elements.NewPassword.value;
   let clienthashedpw = SHA256(plaintextpw);
+  event.preventDefault();
   if(resetform.elements.NewConfirm.value !== plaintextpw){
     warnslot.innerHTML = "Passwords don't match!";
     warnslot.style.color = "red";
-    event.preventDefault();
   } else {
-    event.preventDefault();
     fetch(window.location.pathname+"/resetcheck/"+hashedoldpw)
-    .then(res => res.json)
-    .then(name =>{
+    .then(res => res.json())
+    .then(name => {
       if(name.Status == "Success"){
         resetform.elements.NewPassword.value = clienthashedpw;
         resetform.method="post";
-        resetform.action=window.location.pathname+"/resetnow";
+        resetform.action=window.location.pathname+"/do";
         resetform.submit();
+        document.getElementById("warn").innerHTML = "Password changed successfully. Redirecting to login now..";
+        document.getElementById("warn").style.color = "green";
+        setTimeout(()=>{
+            window.location = "https://connection-app.glitch.me/";
+          },3000)
       } else {
-        warnslot.innerHTML = "Email already exists!";
+        warnslot.innerHTML = "Incorrect old password!";
         warnslot.style.color = "red";
         event.preventDefault();
       }
@@ -128,9 +132,7 @@ resetform.addEventListener("submit", event => {
   }
 })
 
-const login = document.getElementById("login");
-login.addEventListener("click", event => {
-    login.method="get";
-    login.action="/";
-    login.submit();
+const back = document.getElementById("back");
+back.addEventListener("click", event => {
+    window.history.back();
 })
