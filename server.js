@@ -254,9 +254,10 @@ app.get("/user/:cookie/resetpw", (req, res) => {
   res.sendFile(__dirname + "/views/resetpw.html");
 });
 
-app.get("/user/:cookie/resetcheck/:hashedoldpw", (req,res)=>{
+//Validate reset password info
+app.get("/user/:cookie/resetpw/resetcheck/:hashedoldpw", (req,res)=>{
   let cookie = req.params.cookie;
-  let hashedoldpw = req.params.hasholdpw;
+  let hashedoldpw = req.params.hashedoldpw;
   mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology: true });
   Model.findOne({"cookie":cookie},(err,user)=>{
     if (err) return console.error(err);
@@ -271,6 +272,24 @@ app.get("/user/:cookie/resetcheck/:hashedoldpw", (req,res)=>{
     }
   });
 })
+
+//Reset password status - change password on DB
+app.post("/user/:cookie/resetpw/do", (req, res) => {
+  let cookie = req.params.cookie;
+  let update = req.body.NewPassword;
+  mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology: true });
+  Model.findOne({"cookie":cookie},(err,user)=>{
+    if (err) return console.error(err);
+    if(user==null){
+      console.log("Error!");
+    } else {
+      user.cookie=fun.SHA256(user.email+update);
+      user.save(function (err, Doc) {
+        if (err) return console.error(err);
+      });
+    }
+  })
+});
 
 //Admin Server Here
 
